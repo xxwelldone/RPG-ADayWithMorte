@@ -8,8 +8,7 @@ namespace ADayWithMorte.Shared.Sound
 {
     public interface ISong
     {
-        void ScaleTune();
-        void Example();
-        void Intro();
+        void PlayHeartbeat();
+   
     }
 }

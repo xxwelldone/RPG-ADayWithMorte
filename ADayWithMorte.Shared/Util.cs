@@ -1,62 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace ADayWithMorte
 {
     internal class Util
     {
-        public static void MakeTitle()
-        {
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            int width = Console.WindowWidth;
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(@"('-.          
-  ( OO ).-.       
-  / . --. /       
-  | \-.  \        
-.-'-'  |  |           
- \| |_.'  |        
-  |  .-.  |       
-  |  | |  |   
-  `--' `--'");
-            sb.AppendLine(@" _ .-') _     ('-.                
-( (  OO) )   ( OO ).-.            
- \     .'_   / . --. / ,--.   ,--.
- ,`'--..._)  | \-.  \   \  `.'  / 
- |  |  \  '.-'-'  |  |.-')     /  
- |  |   ' | \| |_.'  (OO  \   /   
- |  |   / :  |  .-.  ||   /  /\_  
- |  '--'  /  |  | |  |`-./  /.__) 
- `-------'   `--' `--'  `--'      ");
-            sb.AppendLine(@"  (`\ .-') /`       .-') _    ('-. .-. 
-   `.( OO ),'      (  OO) )  ( OO )  / 
-,--./  .--. ,-.-') /     '._ ,--. ,--. 
-|      |  | |  |OO)|'--...__)|  | |  | 
-|  |   |  |,|  |  \'--.  .--'|   .|  | 
-|  |.'.|  |_)  |(_/   |  |   |       | 
-|         |,|  |_.'   |  |   |  .-.  | 
-|   ,'.   (_|  |      |  |   |  | |  | 
-'--'   '--' `--'      `--'   `--' `--'");
-            sb.AppendLine(@" _   .-')                _  .-')   .-') _     ('-.   
-( '.( OO )_             ( \( -O ) (  OO) )  _(  OO)  
- ,--.   ,--.).-'),-----. ,------. /     '._(,------. 
- |   `.'   |( OO'  .-.  '|   /`. '|'--...__)|  .---' 
- |         |/   |  | |  ||  /  | |'--.  .--'|  |     
- |  |'.'|  |\_) |  |\|  ||  |_.' |   |  |  (|  '--.  
- |  |   |  |  \ |  | |  ||  .  '.'   |  |   |  .--'  
- |  |   |  |   `'  '-'  '|  |\  \    |  |   |  `---. 
- `--'   `--'     `-----' `--' '--'   `--'   `------' ");
-
-
-            Console.WriteLine(sb.ToString());
-
-
-        }
         public static void AsQuestions()
         {
             Console.WriteLine("Hello, you seems to be looking a way out of this reality. Are you tired?");
@@ -84,6 +32,45 @@ namespace ADayWithMorte
             //ToDo: Fazer música, implementar metodo de musica; Limitador de caixa de console com moldura; Macro de coisas que precisam ser adicionadas;
 
 
+        }
+
+        public static void PrintSkullBox(string text)
+        {
+            int consoleWidth = Console.WindowWidth / 2;
+            string[] words = text.Split(' ');
+            List<string> lines = new List<string>();
+            string line = "";
+            int maxLength = 0;
+
+            foreach (string word in words)
+            {
+                if ((line + word).Length > consoleWidth)
+                {
+                    lines.Add(line);
+                    maxLength = Math.Max(maxLength, line.Length);
+                    line = "";
+                }
+
+                line += string.Format("{0} ", word);
+            }
+
+            if (line.Length > 0)
+            {
+                lines.Add(line);
+                maxLength = Math.Max(maxLength, line.Length);
+            }
+
+            string topAndBottomBorder = new string('=', maxLength + 4);
+            string sideBorder = "|";
+            string skull = "☠ ";
+
+            Console.WriteLine(skull + topAndBottomBorder + skull);
+            foreach (string l in lines)
+            {
+                string paddedLine = l.PadRight(maxLength);
+                Console.WriteLine(skull + sideBorder + " " + paddedLine + " " + sideBorder.PadLeft(maxLength - paddedLine.Length + 1) + skull);
+            }
+            Console.WriteLine(skull + topAndBottomBorder + skull);
         }
     }
 }

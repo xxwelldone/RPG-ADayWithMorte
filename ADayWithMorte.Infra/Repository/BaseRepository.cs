@@ -42,6 +42,9 @@ namespace ADayWithMorte.Infra.Repository
 
         }
 
-
+        public TEntity Create(TEntity obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
