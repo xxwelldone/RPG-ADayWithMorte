@@ -12,7 +12,7 @@ namespace ADayWithMorte.Shared.Base.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> expression);
 
-        TEntity Create(TEntity obj);
+        TEntity CreateAsync(TEntity obj);
         TEntity Update(TEntity obj);
         TEntity Delete(TEntity obj);
 

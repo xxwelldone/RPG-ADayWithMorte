@@ -10,5 +10,6 @@ namespace ADayWithMorte.Shared.Sound
     {
         void ScaleTune();
         void Example();
+        void Intro();
     }
 }

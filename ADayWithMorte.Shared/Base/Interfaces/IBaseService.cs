@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ADayWithMorte.Shared.Base.Interfaces
+﻿namespace ADayWithMorte.Shared.Base.Interfaces
 {
-    internal interface IBaseService
+    public interface IBaseService<T>
     {
+        T GetByModel(int id);
+        void Insert(T entity);
+        void Update(T entity);
+        void Delete(int id);
+
     }
 }

@@ -9,7 +9,7 @@ namespace ADayWithMorte
         static void Main(string[] args)
         {
             ISong song = new Song();
-            song.Example();
+            song.Intro();
             string x = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
            int w = Console.WindowWidth/2;
             if (x.Length > w) {

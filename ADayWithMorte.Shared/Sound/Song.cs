@@ -140,6 +140,26 @@ namespace ADayWithMorte.Shared.Sound
             Thread.Sleep(frequency);
 
         }
+        public void Intro()
+        {
+            int[] frequencias = { 300, 800, 457, 289, 100, 90, 80, 70, 40
 
+                };
+
+            int[] duracoes = { breve, breve, semibreve,frequency, semibreve, breve, breve, breve, semibreve
+
+       };
+
+            // Reproduzir as notas com um atraso entre elas
+            for (int i = 0; i < frequencias.Length; i++)
+            {
+                Console.Beep(frequencias[i], duracoes[i]);
+
+                    Thread.Sleep(minima);
+                
+
+
+            }
+        }
     }
 }
