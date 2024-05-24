@@ -2,7 +2,7 @@
 using ADayWithMorte.Infra.Context;
 using ADayWithMorte.Shared.Base.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+
 
 namespace ADayWithMorte.Infra.Repository
 {
@@ -37,7 +37,7 @@ namespace ADayWithMorte.Infra.Repository
         }
         public TEntity Delete(TEntity obj)
         {
-             _postGreeContext.Set<TEntity>().Remove(obj);
+            _postGreeContext.Set<TEntity>().Remove(obj);
             return obj;
 
         }

@@ -18,13 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ADayWithMorte\ADayWithMorte.Shared\ADayWithMorte.Shared.csproj" />
-    <ProjectReference Include="..\ADayWithMorte.Core\ADayWithMorte.Core.csproj" />
-	
+    <Folder Include="Adapter\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Adapter\" />
+    <ProjectReference Include="..\ADayWithMorte.Core\ADayWithMorte.Core.csproj" />
+    <ProjectReference Include="..\ADayWithMorte.Shared\ADayWithMorte.Shared.csproj" />
   </ItemGroup>
 
 </Project>

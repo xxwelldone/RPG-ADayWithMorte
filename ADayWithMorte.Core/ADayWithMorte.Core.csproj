@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ADayWithMorte\ADayWithMorte.Shared\ADayWithMorte.Shared.csproj" />
-    
+    <ProjectReference Include="..\ADayWithMorte.Shared\ADayWithMorte.Shared.csproj" />
   </ItemGroup>
 
 </Project>

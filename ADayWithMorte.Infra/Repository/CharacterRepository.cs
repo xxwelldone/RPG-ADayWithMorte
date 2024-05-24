@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using ADayWithMorte.Core.Entities;
-using ADayWithMorte.Core.Interface.Repository;
-using ADayWithMorte.Shared.Base;
+using ADayWithMorte.Core.Interface.IRepository;
+using ADayWithMorte.Infra.Context;
+
 
 namespace ADayWithMorte.Infra.Repository
 {
-    internal class CharacterRepository : BaseRespository<Character>, ICharacterRepository
+    internal class CharacterRepository : BaseRepository<Character>, ICharacterRepository
     {
+        public CharacterRepository(PostGreeContext context) : base(context)
+        {
+
+        }
     }
 }
