@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADayWithMorte.Core", "ADayW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADayWithMorte.Infra", "ADayWithMorte.Infra\ADayWithMorte.Infra.csproj", "{34857BA2-E6A1-4F83-9FFC-2EF07C52FCB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADayWithMorte.Main", "ADayWithMorte.Main\ADayWithMorte.Main.csproj", "{791C36E1-B323-47FB-9B49-69C35448BEB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADayWithMorte.Console", "ADayWithMorte.Main\ADayWithMorte.Console.csproj", "{791C36E1-B323-47FB-9B49-69C35448BEB4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADayWithMorte.Test", "ADayWithMorte.Test\ADayWithMorte.Test.csproj", "{1F1185BD-84E5-4ABE-8A0F-A2D46C9878B1}"
 EndProject

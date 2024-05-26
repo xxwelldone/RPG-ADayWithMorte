@@ -1,7 +1,7 @@
 ﻿using NAudio.Wave;
 
 
-namespace ADayWithMorte.Shared.Sistema
+namespace ADayWithMorte.Shared.Sistema.LuckSistem
 {
     public class DiceSistem
     {
@@ -19,7 +19,7 @@ namespace ADayWithMorte.Shared.Sistema
 
         internal void diceSound(int diceValue)
         {
-            var audioFile = diceValue > 11 ? @"..\..\..\..\ADayWithMorte.Shared\Sound\Dados\dice.wav" : 
+            var audioFile = diceValue > 11 ? @"..\..\..\..\ADayWithMorte.Shared\Sound\Dados\dice.wav" :
                 @"..\..\..\..\ADayWithMorte.Shared\Sound\Dados\dice2.wav";
 
             using (var audioOutput = new WaveOutEvent())
