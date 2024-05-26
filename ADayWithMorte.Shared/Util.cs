@@ -64,13 +64,24 @@ namespace ADayWithMorte
             string sideBorder = "|";
             string skull = "☠ ";
 
-            Console.WriteLine(skull + topAndBottomBorder + skull);
+            int paddingLines = (Console.WindowHeight - lines.Count) / 2;
+            int paddingSpaces = (Console.WindowWidth - maxLength - 8) / 2;
+
+            for (int i = 0; i < paddingLines; i++)
+            {
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
             foreach (string l in lines)
             {
                 string paddedLine = l.PadRight(maxLength);
-                Console.WriteLine(skull + sideBorder + " " + paddedLine + " " + sideBorder.PadLeft(maxLength - paddedLine.Length + 1) + skull);
+                Console.WriteLine(new string(' ', paddingSpaces) + skull + sideBorder + " " + paddedLine + " " + sideBorder.PadLeft(maxLength - paddedLine.Length + 1) + skull);
             }
-            Console.WriteLine(skull + topAndBottomBorder + skull);
+            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
+            Console.WriteLine();
+            Console.WriteLine(new string(' ', paddingSpaces - 10) + "Pressione Enter para continuar...");
+            Console.ReadLine();
         }
     }
 }

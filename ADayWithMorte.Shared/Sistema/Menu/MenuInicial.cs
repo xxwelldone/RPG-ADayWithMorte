@@ -1,12 +1,17 @@
-﻿using NAudio.Wave;
+﻿using ADayWithMorte.Shared.Sistema.Menu;
+using NAudio.Wave;
 using System.Text;
 
 
 namespace ADayWithMorte.Shared.Sistema
 {
-    public class MenuInicial
+    public class MenuInicial : MenuBase
     {
-        internal void MakeTitle()
+        public MenuInicial() : base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" })
+        {
+        }
+
+        public override void DisplayTitle()
         {
 
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -44,37 +49,14 @@ namespace ADayWithMorte.Shared.Sistema
             Console.WriteLine("Pressione ENTER para continuar");
         }
 
-        internal void PlayAudioFile()
+        public override void SelectOption(int selection)
         {
-            string audioFile = @"..\..\..\..\ADayWithMorte.Shared\Sound\intro\teste.wav";
+            base.SelectOption(selection);
 
-            using (var audioOutput = new WaveOutEvent())
+            if (options[selection] != "Exit")
             {
-                using (var audioFileReader = new AudioFileReader(audioFile))
-                {
-                    audioOutput.Init(audioFileReader);
-                    audioOutput.Play();
-
-                    while (audioOutput.PlaybackState == PlaybackState.Playing)
-                    {
-                        if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
-                        {
-                            break;
-                        }
-                    }
-
-                    audioOutput.Stop();
-                }
+                Console.WriteLine($"Você selecionou {options[selection]}");
             }
-        }
-
-
-        public void MakeMenu()
-        {
-            MakeTitle();
-            PlayAudioFile();
-            Util.PrintSkullBox("Hello World");
-
         }
     }
 }
