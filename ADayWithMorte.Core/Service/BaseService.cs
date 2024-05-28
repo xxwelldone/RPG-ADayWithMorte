@@ -1,37 +1,35 @@
-﻿//using ADayWithMorte.Shared.Base.Interfaces;
+﻿//using System.Linq.Expressions;
+//using ADayWithMorte.Shared.Base.Interfaces;
 
 //namespace ADayWithMorte.Shared.Base
 //{
-//    public abstract class BaseService<T> : IBaseService<T> where T : class
+//    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
 //    {
-//        private readonly IBaseRepository<T> _repository;
-
-//        public BaseService(IBaseRepository<T> repository)
+//        private readonly IUnitOfWork _uow;
+//        protected BaseService(IUnitOfWork uow)
 //        {
-//            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-//        }
 
-//        public T GetByModel(int id)
+//            _uow = uow;
+
+//        }
+//        public Task<IEnumerable<TEntity>> GetAllAsync()
 //        {
-//            return _repository.GetByID(id);
 //        }
-
-
-//        public void Insert(T entity)
+//        public Task<TEntity?> GetByAsync(Expression<Func<TEntity, bool>> expression)
 //        {
-//            _repository.Insert(entity);
+//            throw new NotImplementedException();
 //        }
-
-
-//        public void Update(T entity)
+//        public void Insert(TEntity entity)
 //        {
-//            _repository.Update(entity);
+//            throw new NotImplementedException();
 //        }
-
-
+//        public void Update(TEntity entity)
+//        {
+//            throw new NotImplementedException();
+//        }
 //        public void Delete(int id)
 //        {
-//            _repository.Delete(id);
+//            throw new NotImplementedException();
 //        }
 
 //    }

@@ -53,10 +53,7 @@ namespace ADayWithMorte.Shared.Sistema
         {
             base.SelectOption(selection);
 
-            if (options[selection] != "Exit")
-            {
-                Console.WriteLine($"Você selecionou {options[selection]}");
-            }
+
         }
     }
 }
