@@ -1,11 +1,4 @@
 ﻿
-
-using ADayWithMorte.Shared;
-using ADayWithMorte.Shared.Sistema;
-using ADayWithMorte.Shared.Sistema.Menu;
-using ADayWithMorte.Shared.Sound;
-using System.Text;
-
 namespace ADayWithMorte
 {
     internal class Program
