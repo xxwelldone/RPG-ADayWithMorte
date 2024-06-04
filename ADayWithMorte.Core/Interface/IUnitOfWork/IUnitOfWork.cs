@@ -11,7 +11,7 @@ namespace ADayWithMorte.Core.Interface.IUnitOfWork
     public interface IUnitOfWork
     {
         ICharacterRepository CharacterRepository { get; }
-
+        ISaveRepository SaveRepository { get; }
         Task Commit();
         void Dispose();
     }

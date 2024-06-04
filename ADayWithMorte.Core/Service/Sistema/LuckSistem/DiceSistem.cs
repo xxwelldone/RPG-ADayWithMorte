@@ -1,44 +1,28 @@
-﻿using NAudio.Wave;
+﻿using ADayWithMorte.Core.Interface.IService.ISistem;
+using NAudio.Wave;
 
 
 namespace ADayWithMorte.Shared.Sistema.LuckSistem
 {
     public class DiceSistem
     {
+        private readonly ISoundSystem _soundSystem;
+
+        public DiceSistem(ISoundSystem soundSystem)
+        {
+            _soundSystem = soundSystem;
+        }
         public int throwDice()
         {
             Random diceRandom = new Random();
 
             int dice = diceRandom.Next(1, 21);
-            diceSound(dice);
+            _soundSystem.diceSound(dice);
             Console.WriteLine($"Você tirou {dice}");
             Console.WriteLine("Pressione ENTER para continuar");
             Console.ReadLine();
             return dice;
         }
-
-        internal void diceSound(int diceValue)
-        {
-            var audioFile = diceValue > 11 ? @"..\..\..\..\ADayWithMorte.Shared\Sound\Dados\dice.wav" :
-                @"..\..\..\..\ADayWithMorte.Shared\Sound\Dados\dice2.wav";
-
-            using (var audioOutput = new WaveOutEvent())
-            {
-                using (var audioFileReader = new AudioFileReader(audioFile))
-                {
-                    audioOutput.Init(audioFileReader);
-                    audioOutput.Play();
-
-                    while (audioOutput.PlaybackState == PlaybackState.Playing)
-                    {
-                        Thread.Sleep(1000);
-                    }
-                }
-            }
-        }
-
-
-
     }
 }
 

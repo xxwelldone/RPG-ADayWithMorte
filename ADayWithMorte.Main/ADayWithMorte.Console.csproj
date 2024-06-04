@@ -20,7 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Scrutor" Version="4.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ADayWithMorte.Core\ADayWithMorte.Core.csproj" />
+    <ProjectReference Include="..\ADayWithMorte.Infra\ADayWithMorte.Infra.csproj" />
     <ProjectReference Include="..\ADayWithMorte.Shared\ADayWithMorte.Shared.csproj" />
   </ItemGroup>
 

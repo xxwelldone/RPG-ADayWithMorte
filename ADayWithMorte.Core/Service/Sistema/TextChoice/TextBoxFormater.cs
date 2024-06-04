@@ -1,19 +1,22 @@
-﻿using NAudio.Wave;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using ADayWithMorte.Core.Interface.IService.ISistem;
+using NAudio.Wave;
 namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 {
     public class TextBoxFormater
     {
+        private readonly ISoundSystem _soundSystem;
+
+
         public int Moral = 0;
         public int Harmonico = 0;
         public int Colerico = 0;
 
-        public void PrintSkullBox(string text)
+        public TextBoxFormater(ISoundSystem soundSystem)
+        {
+            _soundSystem = soundSystem;
+        }
+       
+        public void FormatAndPrintSkullBox(string text)
         {
             int consoleWidth = Console.WindowWidth / 2;
             string[] lines = text.Split('\n');
@@ -37,7 +40,7 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 
                         if (lineCount >= 7)
                         {
-                            PrintBox(formattedLines, maxLength);
+                            MakeBox(formattedLines, maxLength);
                             formattedLines.Clear();
                             maxLength = 0;
                             lineCount = 0;
@@ -57,16 +60,14 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 
             if (formattedLines.Count > 0)
             {
-                PrintBox(formattedLines, maxLength);
+                MakeBox(formattedLines, maxLength);
             }
         }
-
-        public void PrintBox(List<string> lines, int maxLength)
+        private void MakeBox(List<string> lines, int maxLength)
         {
             string topAndBottomBorder = new string('=', maxLength + 4);
             string sideBorder = "|";
             string skull = "☠ ";
-            string triangle = "▼";
 
             int paddingLines = (Console.WindowHeight - lines.Count) / 2;
             int paddingSpaces = (Console.WindowWidth - maxLength - 8) / 2;
@@ -83,28 +84,34 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
                 Console.Write(new string(' ', paddingSpaces) + skull + sideBorder + " ");
                 int index = 0;
 
-                //TODO: pensar sobre som de fala
-                //CancellationTokenSource cts = new CancellationTokenSource();
-                //Task soundTask = Task.Run(() => TalkSound(cts.Token));
+                CancellationTokenSource cts = new CancellationTokenSource();
+                Task soundTask = _soundSystem.TalkSound(cts.Token);
 
                 foreach (char c in paddedLine)
                 {
-
                     if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
                     {
-                        
                         Console.Write(paddedLine.Substring(index));
-                        //cts.Cancel();
+
+                        cts.Cancel();
                         break;
                     }
+
                     Console.Write(c);
                     Thread.Sleep(35);
                     index++;
                 }
-                //soundTask.Wait();
+                soundTask.Wait();
                 Console.WriteLine(" " + sideBorder + skull);
             }
             Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
+
+            PromptToContinue(paddingSpaces);
+        }
+
+        private void PromptToContinue(int paddingSpaces)
+        {
+            string triangle = "▼";
 
             for (int i = 0; i < 130; i++)
             {
@@ -117,41 +124,18 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
                 Console.SetCursorPosition(paddingSpaces - 10, Console.CursorTop);
                 if (i % 2 == 0)
                 {
-                    Console.Write("Pressione Enter para continuar..." + triangle);
+                    Console.Write("Press Enter to continue..." + triangle);
                 }
                 else
                 {
-                    Console.Write("Pressione Enter para continuar... ");
+                    Console.Write("Press Enter to continue... ");
                 }
                 Thread.Sleep(500);
             }
         }
+       
 
-
-        internal void TalkSound(CancellationToken ct)
-        {
-            string audioFile = @"..\..\..\..\ADayWithMorte.Shared\Sound\Talk\Talking.wav";
-
-            using (var audioOutput = new WaveOutEvent())
-            {
-                using (var audioFileReader = new AudioFileReader(audioFile))
-                {
-                    audioOutput.Init(audioFileReader);
-                    audioOutput.Play();
-
-                    while (audioOutput.PlaybackState == PlaybackState.Playing)
-                    {
-                        if (ct.IsCancellationRequested)
-                        {
-                            audioOutput.Stop();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        public void OptionChoice(string text)
+        public int ChoiceOption(string text)
         {
             Dictionary<string, string> options = ParseOptions(text);
 
@@ -205,7 +189,7 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
                             break;
                     }
 
-                    return;
+                    return selecao;
                 }
             }
         }
@@ -226,6 +210,5 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 
             return dict;
         }
-    
     }
 }

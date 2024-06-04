@@ -10,7 +10,7 @@ namespace ADayWithMorte.Core.Entities
     public class Save: BaseEntity
     {
         public string UserId { get; set; }
-        public TimeSpan PlayTime { get; set; }
-        public string CurrentChapter { get; set; }
+        public DateTime PlayTime { get; set; }
+        public int CurrentChapter { get; set; }
     }
 }

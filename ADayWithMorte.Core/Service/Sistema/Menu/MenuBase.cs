@@ -1,15 +1,19 @@
-﻿
+﻿using ADayWithMorte.Core.Interface.IService.ISistem;
 using NAudio.Wave;
 
 namespace ADayWithMorte.Shared.Sistema.Menu
 {
     public abstract class MenuBase
     {
+        private readonly ISoundSystem _soundSystem;
         protected List<string> options;
+        protected readonly string music;
 
-        public MenuBase(List<string> options)
+        public MenuBase(List<string> options, ISoundSystem soundSystem, string music)
         {
             this.options = options;
+            this._soundSystem = soundSystem;
+            this.music = music;
         }
 
         public abstract void DisplayTitle();
@@ -65,36 +69,12 @@ namespace ADayWithMorte.Shared.Sistema.Menu
             }
         }
           
-        public void PlayAudioFile()
-        {
-            string audioFile = @"..\..\..\..\ADayWithMorte.Shared\Sound\intro\teste.wav";
-
-            using (var audioOutput = new WaveOutEvent())
-            {
-                using (var audioFileReader = new AudioFileReader(audioFile))
-                {
-                    audioOutput.Init(audioFileReader);
-                    audioOutput.Play();
-
-                    while (audioOutput.PlaybackState == PlaybackState.Playing)
-                    {
-                        if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                    }
-
-                    audioOutput.Stop();
-                }
-            }
-        }
         public void DisplayMenu(bool showTitle)
         {
             if (showTitle)
             {
                 DisplayTitle();
-                PlayAudioFile();
+                _soundSystem.PlayBackgroundSound(music);
             }
             
             int selection = DisplayOptions();

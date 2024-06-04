@@ -1,14 +1,23 @@
-﻿using ADayWithMorte.Shared.Sistema.Menu;
+﻿using ADayWithMorte.Core.Entities;
+using ADayWithMorte.Core.Interface.IService;
+using ADayWithMorte.Core.Interface.IService.ISistem;
+using ADayWithMorte.Core.Service.Sistema.Menu;
+using ADayWithMorte.Shared.Sistema.Menu;
+using ADayWithMorte.Shared.Sistema.Timer;
 using NAudio.Wave;
 using System.Text;
 
 
-namespace ADayWithMorte.Shared.Sistema
+namespace ADayWithMorte.Core.Service
 {
-    public class MenuInicial : MenuBase
+    public class MenuInicial : MenuBase, IMenuInicial
     {
-        public MenuInicial() : base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" })
+        private readonly ISaveService _saveService;
+        private IGameTimer _gameTimer;
+        public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService) :
+            base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" }, soundSystem, music)
         {
+            _saveService = saveService;
         }
 
         public override void DisplayTitle()
@@ -53,7 +62,33 @@ namespace ADayWithMorte.Shared.Sistema
         {
             base.SelectOption(selection);
 
+            switch (options[selection])
+            {
+                case "New Game":
+                    _gameTimer = new GameTimer();
+                    _gameTimer.Start();
+                    //abre um chapterService.RunChapter(1);
+                    //deve pegar o arquivo, ler, rodar e traduzir
+                    //no text.FormatAndPrintSkullBox (para textos)
+                    //e text.ChoiceOption (para opções)
+                    break;
 
+                case "Load Game":
+                    Save save = _saveService.SelectSaveAsync().Result;
+                    _gameTimer = new GameTimer(save.PlayTime);
+                    _gameTimer.Start();
+
+                    //abre um chapterService.RunChapter(save.CurrentChapter);
+                    //deve pegar o arquivo, ler, rodar e traduzir
+                    //no text.FormatAndPrintSkullBox (para textos)
+                    //e text.ChoiceOption (para opções)
+                    break;
+
+                case "Settings":
+                    //_menuSettings.DisplayMenu(false);
+                    break;
+            }
         }
+
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using ADayWithMorte.Core.Interface.IService.ISistem;
+using System.Diagnostics;
 
 namespace ADayWithMorte.Shared.Sistema.Timer
 {
-    public class GameTimer
+    public class GameTimer : IGameTimer
     {
         private Stopwatch stopwatch;
         private TimeSpan initialTime;

@@ -13,6 +13,8 @@ namespace ADayWithMorte.Infra.UOW
     public class UnitOfWork : IUnitOfWork
     {
         private ICharacterRepository? _characterRepository;
+        private ISaveRepository? _saveRepository;
+
         private PostGreeContext _context;
         public UnitOfWork(PostGreeContext context)
         {
@@ -23,6 +25,14 @@ namespace ADayWithMorte.Infra.UOW
             get
             {
                 return _characterRepository ?? new CharacterRepository(_context);
+            }
+        }
+
+        public ISaveRepository SaveRepository
+        {
+            get
+            {
+                return _saveRepository ?? new SaveRepository(_context);
             }
         }
 
