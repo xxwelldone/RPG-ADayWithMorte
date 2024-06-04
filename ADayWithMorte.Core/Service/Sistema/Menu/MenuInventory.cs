@@ -9,12 +9,12 @@ namespace ADayWithMorte.Shared.Sistema.Menu
 {
     public class MenuInventory : MenuBase, IMenuInventory
     {
-        private IMenuManager _menuManager;
+        private Func<IMenuManager> _menuManagerFactory;
 
-        public MenuInventory(ISoundSystem soundSystem, string music, IMenuManager menuManager)
+        public MenuInventory(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory)
         : base(new List<string> { "Items", "Return", "Use an Item", "Save Game", "Exit Game", "Back to Menu" }, soundSystem, music)
         {
-            _menuManager = menuManager;
+            _menuManagerFactory = menuManagerFactory;
         }
 
         public override void DisplayTitle()
@@ -42,7 +42,8 @@ namespace ADayWithMorte.Shared.Sistema.Menu
                     // Código para sair do jogo
                     break;
                 case "Back to Menu":
-                    _menuManager.DisplayInitialMenu();
+                    var menuManager = _menuManagerFactory();
+                    menuManager.DisplayInitialMenu();
                     break;
             }
         }

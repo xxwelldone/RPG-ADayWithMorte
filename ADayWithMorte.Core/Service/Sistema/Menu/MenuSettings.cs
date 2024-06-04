@@ -5,12 +5,12 @@ namespace ADayWithMorte.Core.Service.Sistema.Menu
 {
     public class MenuSettings : MenuBase, IMenuSettings
     {
-        private IMenuManager _menuManager;
+        private Func<IMenuManager> _menuManagerFactory;
 
-        public MenuSettings(ISoundSystem soundSystem, string music, IMenuManager menuManager)
+        public MenuSettings(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory)
         : base(new List<string> { "Language", "Sound Volume", "Display Settings", "Save Settings", "Back to Menu" }, soundSystem, music)
         {
-            _menuManager = menuManager;
+            _menuManagerFactory = menuManagerFactory;
         }
 
         public override void DisplayTitle()
@@ -38,7 +38,8 @@ namespace ADayWithMorte.Core.Service.Sistema.Menu
                     // Código para ajustar as configurações de salvamento
                     break;
                 case "Back to Menu":
-                    _menuManager.DisplayInitialMenu();
+                    var menuManager = _menuManagerFactory();
+                    menuManager.DisplayInitialMenu();
                     break;
             }
         }

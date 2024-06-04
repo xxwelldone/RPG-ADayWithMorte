@@ -9,8 +9,6 @@ namespace ADayWithMorte.Core.Service.Sistema.Menu
         private readonly IMenuSettings _menuSettings;
         private readonly IMenuInventory _menuInventory;
 
-
-
         public MenuManager(IMenuInicial menuInicial, IMenuSettings menuSettings, IMenuInventory menuInventory)
         {
             _menuInicial = menuInicial;

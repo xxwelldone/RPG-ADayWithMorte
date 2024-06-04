@@ -40,6 +40,7 @@ namespace ADayWithMorte.Main.Config
             services.AddTransient<IMenuInventory, MenuInventory>();
             services.AddTransient<IMenuInicial, MenuInicial>();
 
+            services.AddTransient<Func<IMenuManager>>(sp => () => sp.GetService<IMenuManager>());
 
             //banco de dados
             services.AddDbContext<PostGreeContext>(options =>

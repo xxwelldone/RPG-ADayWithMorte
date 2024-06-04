@@ -14,10 +14,13 @@ namespace ADayWithMorte.Core.Service
     {
         private readonly ISaveService _saveService;
         private IGameTimer _gameTimer;
-        public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService) :
+        private Func<IMenuManager> _menuManagerFactory;
+
+        public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService, Func<IMenuManager> menuManagerFactory) :
             base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" }, soundSystem, music)
         {
             _saveService = saveService;
+            _menuManagerFactory = menuManagerFactory;
         }
 
         public override void DisplayTitle()
@@ -85,7 +88,8 @@ namespace ADayWithMorte.Core.Service
                     break;
 
                 case "Settings":
-                    //_menuSettings.DisplayMenu(false);
+                    var menuManager = _menuManagerFactory();
+                    menuManager.DisplaySettingsMenu();
                     break;
             }
         }

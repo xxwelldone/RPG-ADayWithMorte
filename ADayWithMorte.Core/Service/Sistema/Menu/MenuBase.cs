@@ -64,6 +64,7 @@ namespace ADayWithMorte.Shared.Sistema.Menu
         {
             if (options[selection] == "Exit Game")
             {
+                //TODO: readequar codigo - codigo util não mais utilizado, movido para o TextBoxFormater  
                 Util.PrintSkullBox("See you soon...");
                 Environment.Exit(0);
             }

@@ -12,31 +12,30 @@ namespace ADayWithMorte.Main.Config
         // jogo pronto: .EXE
         
         static void Main(string[] args)
-        {
+        {      
+            //engine de jogo (classe unica? injeção?)
+            //necessario criar uma injeção de config
             // Crie uma nova instância do ConfigurationBuilder
             var configurationBuilder = new ConfigurationBuilder();
-
             // Adicione (opcionalmente) um arquivo de configuração
             object value = configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
             // Construa a configuração
             var configuration = configurationBuilder.Build();
-
             // Crie o contêiner de serviço e configure suas dependências
             IServiceCollection services = new ServiceCollection();
             InjectionConfig.ConfigureServices(services, configuration);
-
             // Construa o provedor de serviços
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
+                //execuçao confugurada:
+
                 // Agora você pode usar o serviceProvider para obter suas dependências
                 // Por exemplo: var myService = serviceProvider.GetRequiredService<IMyService>();
-                var menu = serviceProvider.GetRequiredService<IMenuInicial>();
+                IMenuInicial menu = serviceProvider.GetRequiredService<IMenuInicial>();
                 menu.DisplayMenu(true);
             }
         
-        //engine de jogo (classe unica? injeção?)
-        //necessario criar uma injeção de config
+  
 
         //Banco de dados
         //var optionsBuilder = new DbContextOptionsBuilder<PostGreeContext>();
