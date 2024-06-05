@@ -16,8 +16,8 @@ namespace ADayWithMorte.Core.Service
         private IGameTimer _gameTimer;
         private Func<IMenuManager> _menuManagerFactory;
 
-        public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService, Func<IMenuManager> menuManagerFactory) :
-            base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" }, soundSystem, music)
+        public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService, Func<IMenuManager> menuManagerFactory, ITextBoxFormater formater) :
+            base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" }, soundSystem, music, formater)
         {
             _saveService = saveService;
             _menuManagerFactory = menuManagerFactory;

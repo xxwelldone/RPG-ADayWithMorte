@@ -7,8 +7,8 @@ namespace ADayWithMorte.Core.Service.Sistema.Menu
     {
         private Func<IMenuManager> _menuManagerFactory;
 
-        public MenuSettings(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory)
-        : base(new List<string> { "Language", "Sound Volume", "Display Settings", "Save Settings", "Back to Menu" }, soundSystem, music)
+        public MenuSettings(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory, ITextBoxFormater formater)
+        : base(new List<string> { "Language", "Sound Volume", "Display Settings", "Save Settings", "Back to Menu" }, soundSystem, music, formater)
         {
             _menuManagerFactory = menuManagerFactory;
         }

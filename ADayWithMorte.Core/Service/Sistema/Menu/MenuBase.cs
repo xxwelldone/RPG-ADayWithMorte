@@ -1,4 +1,6 @@
 ﻿using ADayWithMorte.Core.Interface.IService.ISistem;
+using ADayWithMorte.Core.Service.Sistema.Music;
+using ADayWithMorte.Core.Service.Sistema.TextChoice;
 using NAudio.Wave;
 
 namespace ADayWithMorte.Shared.Sistema.Menu
@@ -8,12 +10,13 @@ namespace ADayWithMorte.Shared.Sistema.Menu
         private readonly ISoundSystem _soundSystem;
         protected List<string> options;
         protected readonly string music;
-
-        public MenuBase(List<string> options, ISoundSystem soundSystem, string music)
+        private ITextBoxFormater _formater;
+        public MenuBase(List<string> options, ISoundSystem soundSystem, string music, ITextBoxFormater formater)
         {
             this.options = options;
             this._soundSystem = soundSystem;
             this.music = music;
+            _formater = formater;
         }
 
         public abstract void DisplayTitle();
@@ -64,8 +67,10 @@ namespace ADayWithMorte.Shared.Sistema.Menu
         {
             if (options[selection] == "Exit Game")
             {
-                //TODO: readequar codigo - codigo util não mais utilizado, movido para o TextBoxFormater  
-                Util.PrintSkullBox("See you soon...");
+                //TODO: readequar codigo - codigo util não mais utilizado, movido para o TextBoxFormater
+                _formater.FormatAndPrintSkullBox("See you soon...");
+                
+
                 Environment.Exit(0);
             }
         }

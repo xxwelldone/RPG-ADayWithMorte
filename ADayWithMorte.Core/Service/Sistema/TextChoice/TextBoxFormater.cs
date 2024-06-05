@@ -1,8 +1,7 @@
 ﻿using ADayWithMorte.Core.Interface.IService.ISistem;
-using NAudio.Wave;
 namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 {
-    public class TextBoxFormater
+    public class TextBoxFormater : ITextBoxFormater
     {
         private readonly ISoundSystem _soundSystem;
 
@@ -15,125 +14,6 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
         {
             _soundSystem = soundSystem;
         }
-       
-        public void FormatAndPrintSkullBox(string text)
-        {
-            int consoleWidth = Console.WindowWidth / 2;
-            string[] lines = text.Split('\n');
-            List<string> formattedLines = new List<string>();
-            int maxLength = 0;
-            int lineCount = 0;
-
-            foreach (string line in lines)
-            {
-                string[] words = line.Split(' ');
-                string formattedLine = "";
-
-                foreach (string word in words)
-                {
-                    if ((formattedLine + word).Length > consoleWidth || word.EndsWith("."))
-                    {
-                        formattedLines.Add(formattedLine);
-                        maxLength = Math.Max(maxLength, formattedLine.Length);
-                        formattedLine = "";
-                        lineCount++;
-
-                        if (lineCount >= 7)
-                        {
-                            MakeBox(formattedLines, maxLength);
-                            formattedLines.Clear();
-                            maxLength = 0;
-                            lineCount = 0;
-                            Console.Clear();
-                        }
-                    }
-
-                    formattedLine += string.Format("{0} ", word);
-                }
-
-                if (formattedLine.Length > 0)
-                {
-                    formattedLines.Add(formattedLine);
-                    maxLength = Math.Max(maxLength, formattedLine.Length);
-                }
-            }
-
-            if (formattedLines.Count > 0)
-            {
-                MakeBox(formattedLines, maxLength);
-            }
-        }
-        private void MakeBox(List<string> lines, int maxLength)
-        {
-            string topAndBottomBorder = new string('=', maxLength + 4);
-            string sideBorder = "|";
-            string skull = "☠ ";
-
-            int paddingLines = (Console.WindowHeight - lines.Count) / 2;
-            int paddingSpaces = (Console.WindowWidth - maxLength - 8) / 2;
-
-            for (int i = 0; i < paddingLines; i++)
-            {
-                Console.WriteLine();
-            }
-
-            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
-            foreach (string l in lines)
-            {
-                string paddedLine = l.PadRight(maxLength);
-                Console.Write(new string(' ', paddingSpaces) + skull + sideBorder + " ");
-                int index = 0;
-
-                CancellationTokenSource cts = new CancellationTokenSource();
-                Task soundTask = _soundSystem.TalkSound(cts.Token);
-
-                foreach (char c in paddedLine)
-                {
-                    if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
-                    {
-                        Console.Write(paddedLine.Substring(index));
-
-                        cts.Cancel();
-                        break;
-                    }
-
-                    Console.Write(c);
-                    Thread.Sleep(35);
-                    index++;
-                }
-                soundTask.Wait();
-                Console.WriteLine(" " + sideBorder + skull);
-            }
-            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
-
-            PromptToContinue(paddingSpaces);
-        }
-
-        private void PromptToContinue(int paddingSpaces)
-        {
-            string triangle = "▼";
-
-            for (int i = 0; i < 130; i++)
-            {
-                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
-                {
-                    Console.WriteLine();
-                    break;
-                }
-
-                Console.SetCursorPosition(paddingSpaces - 10, Console.CursorTop);
-                if (i % 2 == 0)
-                {
-                    Console.Write("Press Enter to continue..." + triangle);
-                }
-                else
-                {
-                    Console.Write("Press Enter to continue... ");
-                }
-                Thread.Sleep(500);
-            }
-        }
-       
 
         public int ChoiceOption(string text)
         {
@@ -194,7 +74,104 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
             }
         }
 
-        private Dictionary<string, string> ParseOptions(string text)
+
+        public void FormatAndPrintSkullBox(string text)
+        {
+            int consoleWidth = Console.WindowWidth / 2;
+            string[] lines = text.Split('\n');
+            List<string> formattedLines = new List<string>();
+            int maxLength = 0;
+            int lineCount = 0;
+
+            foreach (string line in lines)
+            {
+                string[] words = line.Split(' ');
+                string formattedLine = "";
+
+                foreach (string word in words)
+                {
+                    if ((formattedLine + word).Length > consoleWidth || word.EndsWith("."))
+                    {
+                        formattedLines.Add(formattedLine);
+                        maxLength = Math.Max(maxLength, formattedLine.Length);
+                        formattedLine = "";
+                        lineCount++;
+
+                        if (lineCount >= 7)
+                        {
+                            MakeBox(formattedLines, maxLength);
+                            formattedLines.Clear();
+                            maxLength = 0;
+                            lineCount = 0;
+                            Console.Clear();
+                        }
+                    }
+
+                    formattedLine += string.Format("{0} ", word);
+                }
+
+                if (formattedLine.Length > 0)
+                {
+                    formattedLines.Add(formattedLine);
+                    maxLength = Math.Max(maxLength, formattedLine.Length);
+                }
+            }
+
+            if (formattedLines.Count > 0)
+            {
+                MakeBox(formattedLines, maxLength);
+            }
+        }
+
+
+        public void MakeBox(List<string> lines, int maxLength)
+        {
+            string topAndBottomBorder = new string('=', maxLength + 4);
+            string sideBorder = "|";
+            string skull = "☠ ";
+
+            int paddingLines = (Console.WindowHeight - lines.Count) / 2;
+            int paddingSpaces = (Console.WindowWidth - maxLength - 8) / 2;
+
+            for (int i = 0; i < paddingLines; i++)
+            {
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
+            foreach (string l in lines)
+            {
+                string paddedLine = l.PadRight(maxLength);
+                Console.Write(new string(' ', paddingSpaces) + skull + sideBorder + " ");
+                int index = 0;
+
+                CancellationTokenSource cts = new CancellationTokenSource();
+                Task soundTask = _soundSystem.TalkSound(cts.Token);
+
+                foreach (char c in paddedLine)
+                {
+                    if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
+                    {
+                        Console.Write(paddedLine.Substring(index));
+
+                        cts.Cancel();
+                        break;
+                    }
+
+                    Console.Write(c);
+                    Thread.Sleep(35);
+                    index++;
+                }
+                soundTask.Wait();
+                Console.WriteLine(" " + sideBorder + skull);
+            }
+            Console.WriteLine(new string(' ', paddingSpaces) + skull + topAndBottomBorder + skull);
+
+            PromptToContinue(paddingSpaces);
+        }
+
+
+        public Dictionary<string, string> ParseOptions(string text)
         {
             var dict = new Dictionary<string, string>();
             var lines = text.Split('\n');
@@ -210,5 +187,31 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
 
             return dict;
         }
+
+        public void PromptToContinue(int paddingSpaces)
+        {
+            string triangle = "▼";
+
+            for (int i = 0; i < 130; i++)
+            {
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+
+                Console.SetCursorPosition(paddingSpaces - 10, Console.CursorTop);
+                if (i % 2 == 0)
+                {
+                    Console.Write("Press Enter to continue..." + triangle);
+                }
+                else
+                {
+                    Console.Write("Press Enter to continue... ");
+                }
+                Thread.Sleep(500);
+            }
+        }
+
     }
 }

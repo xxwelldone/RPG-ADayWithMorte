@@ -11,8 +11,8 @@ namespace ADayWithMorte.Shared.Sistema.Menu
     {
         private Func<IMenuManager> _menuManagerFactory;
 
-        public MenuInventory(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory)
-        : base(new List<string> { "Items", "Return", "Use an Item", "Save Game", "Exit Game", "Back to Menu" }, soundSystem, music)
+        public MenuInventory(ISoundSystem soundSystem, string music, Func<IMenuManager> menuManagerFactory, ITextBoxFormater formater)
+        : base(new List<string> { "Items", "Return", "Use an Item", "Save Game", "Exit Game", "Back to Menu" }, soundSystem, music, formater)
         {
             _menuManagerFactory = menuManagerFactory;
         }

@@ -15,6 +15,7 @@ using ADayWithMorte.Core.Service.Sistema.Menu;
 using ADayWithMorte.Core.Interface.IUnitOfWork;
 using ADayWithMorte.Infra.UOW;
 using ADayWithMorte.Shared.Sistema.Menu;
+using ADayWithMorte.Core.Service.Sistema.TextChoice;
 
 namespace ADayWithMorte.Main.Config
 {
@@ -29,6 +30,7 @@ namespace ADayWithMorte.Main.Config
             services.AddSingleton<ISoundSystem, SoundSystem>();
             services.AddTransient<IGameTimer, GameTimer>();
             services.AddTransient<ISaveService, SaveService>();
+            services.AddScoped<ITextBoxFormater, TextBoxFormater>();
 
             // Configuração de música
             string musicIntro = @"..\..\..\..\ADayWithMorte.Shared\Sound\intro\heart_monitor.wav";
