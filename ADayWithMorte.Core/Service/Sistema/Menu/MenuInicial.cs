@@ -2,6 +2,7 @@
 using ADayWithMorte.Core.Interface.IService;
 using ADayWithMorte.Core.Interface.IService.ISistem;
 using ADayWithMorte.Core.Service.Sistema.Menu;
+using ADayWithMorte.Core.Service.Sistema.TextChoice;
 using ADayWithMorte.Shared.Sistema.Menu;
 using ADayWithMorte.Shared.Sistema.Timer;
 using NAudio.Wave;
@@ -15,12 +16,14 @@ namespace ADayWithMorte.Core.Service
         private readonly ISaveService _saveService;
         private IGameTimer _gameTimer;
         private Func<IMenuManager> _menuManagerFactory;
+        private StoryReader _chapterReader;//temporario
 
         public MenuInicial(ISoundSystem soundSystem, string music, ISaveService saveService, Func<IMenuManager> menuManagerFactory, ITextBoxFormater formater) :
             base(new List<string> { "New Game", "Load Game", "Settings", "Exit Game" }, soundSystem, music, formater)
         {
             _saveService = saveService;
             _menuManagerFactory = menuManagerFactory;
+            _chapterReader = new StoryReader(formater); //temporario
         }
 
         public override void DisplayTitle()
@@ -59,6 +62,9 @@ namespace ADayWithMorte.Core.Service
             Console.WriteLine(sb.ToString());
             Console.WriteLine();
             Console.WriteLine("Pressione ENTER para continuar");
+
+            //_chapterReader.ReadFile(@"C:\Users\Wesley\Downloads\prologo2.txt"); 
+            _chapterReader.ReadChapter(new Chapter() { Colour = ConsoleColor.DarkYellow, Description = "blablabla" });
         }
 
         public override void SelectOption(int selection)

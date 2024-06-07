@@ -75,8 +75,9 @@ namespace ADayWithMorte.Core.Service.Sistema.TextChoice
         }
 
 
-        public void FormatAndPrintSkullBox(string text)
+        public void FormatAndPrintSkullBox(string text, ConsoleColor color)
         {
+            Console.ForegroundColor = color;
             int consoleWidth = Console.WindowWidth / 2;
             string[] lines = text.Split('\n');
             List<string> formattedLines = new List<string>();

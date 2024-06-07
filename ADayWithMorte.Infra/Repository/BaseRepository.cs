@@ -24,11 +24,7 @@ namespace ADayWithMorte.Infra.Repository
             var obj = await _postGreeContext.Set<TEntity>().FirstOrDefaultAsync(expression);
             return obj;
         }
-        public TEntity CreateAsync(TEntity obj)
-        {
-            _postGreeContext.Set<TEntity>().AddAsync(obj);
-            return obj;
-        }
+   
 
         public TEntity Update(TEntity obj)
         {
@@ -44,7 +40,8 @@ namespace ADayWithMorte.Infra.Repository
 
         public TEntity Create(TEntity obj)
         {
-            throw new NotImplementedException();
+            _postGreeContext.Set<TEntity>().Add(obj);
+            return obj;
         }
     }
 }

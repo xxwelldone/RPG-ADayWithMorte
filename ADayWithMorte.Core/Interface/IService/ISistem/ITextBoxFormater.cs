@@ -8,7 +8,7 @@ namespace ADayWithMorte.Core.Interface.IService.ISistem
 {
     public interface  ITextBoxFormater
     {
-        void FormatAndPrintSkullBox(string text);
+        void FormatAndPrintSkullBox(string text, ConsoleColor color);
         void MakeBox(List<string> lines, int maxLength);
         void PromptToContinue(int paddingSpaces);
         int ChoiceOption(string text);

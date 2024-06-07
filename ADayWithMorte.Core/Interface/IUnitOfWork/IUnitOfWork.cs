@@ -12,6 +12,7 @@ namespace ADayWithMorte.Core.Interface.IUnitOfWork
     {
         ICharacterRepository CharacterRepository { get; }
         ISaveRepository SaveRepository { get; }
+        IChapterRepository ChapterRepository { get; }
         Task Commit();
         void Dispose();
     }

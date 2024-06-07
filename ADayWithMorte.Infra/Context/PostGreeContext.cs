@@ -12,6 +12,9 @@ namespace ADayWithMorte.Infra.Context
     {
         public PostGreeContext(DbContextOptions<PostGreeContext> options) : base(options) { }
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Game> Games { get; set; }
+
     }
 
 
